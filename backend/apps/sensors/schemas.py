@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, field_validator
 
 
-class SensorData(BaseModel):
+class SensorCSVData(BaseModel):
     timestamp: datetime
     temperature: float | None
     humidity: float | None
@@ -30,3 +30,6 @@ class SensorData(BaseModel):
     @classmethod
     def round_air_quality(cls, v: float | None) -> float | None:
         return round(v, 2) if v else v
+
+
+# class Sensor

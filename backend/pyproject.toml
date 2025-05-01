@@ -1,0 +1,74 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2",
+    "djangorestframework>=3.16.0",
+    "environs>=14.1.1",
+    "psycopg2>=2.9.10",
+    "pydantic>=2.11.4",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "django-stubs>=5.2.0",
+    "ipdb>=0.13.13",
+    "mypy>=1.15.0",
+    "pytest-django>=4.11.1",
+    "ruff>=0.11.7",
+]
+
+
+[tool.ruff]
+line-length = 80
+target-version = "py312"
+include = [
+    "*.py"
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+ignore = ["F405"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.local"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+
+[tool.mypy]
+plugins = ["pydantic.mypy", "mypy_django_plugin.main"]
+exclude = [
+    "config/settings/local.py",
+    "config/settings/production.py",
+    "manage.py"
+]
+
+follow_imports = "silent"
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+allow_redefinition = true
+
+# disable third party checks
+disable_error_code = "import-untyped"
+
+# for strict mypy: (this is the tricky one :-))
+disallow_untyped_defs = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings.local"
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true

@@ -30,6 +30,3 @@ class SensorCSVData(BaseModel):
     @classmethod
     def round_air_quality(cls, v: float | None) -> float | None:
         return round(v, 2) if v else v
-
-
-# class Sensor

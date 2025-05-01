@@ -68,5 +68,5 @@ class IntervalOptions(StrEnum):
     LAST_5_MINUTES = 'last_5_minutes'
     LAST_10_MINUTES = 'last_10_minutes'
     LAST_1_HOUR = 'last_1_hour'
-    LAST_24_HOURS = 'last_34_hours'
+    LAST_24_HOURS = 'last_24_hours'
     ALL_TIME = 'all_time'

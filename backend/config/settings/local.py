@@ -14,3 +14,6 @@ DATABASES = {
         'PORT': env.str('DATABASE_PORT'),
     }
 }
+
+
+INSTALLED_APPS.append('django_extensions')

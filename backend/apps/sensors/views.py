@@ -8,7 +8,7 @@ from apps.commons.permissions import ApiKeyPermission
 from apps.sensors.serializers import SensorDataSerializer
 
 
-class SensorsDataApiView(APIView):
+class SensorDataApiView(APIView):
     permission_classes = (ApiKeyPermission,)
 
     def post(self, request: Request) -> Response:

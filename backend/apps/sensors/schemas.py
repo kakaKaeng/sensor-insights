@@ -34,6 +34,13 @@ class SensorCSVData(BaseModel):
         return round(v, 2) if v else v
 
 
+class SensorColumn(BaseModel):
+    timestamp: list[datetime]
+    temperature: list[float]
+    humidity: list[float]
+    air_quality: list[float]
+
+
 class IQR(BaseModel):
     lower: float | None
     upper: float | None

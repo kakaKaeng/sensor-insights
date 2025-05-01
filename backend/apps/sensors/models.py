@@ -1,7 +1,10 @@
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
+from django.utils import timezone
+
+from apps.sensors.schemas import IntervalOptions
 
 
 class SensorManager(models.Manager['Sensor']):
@@ -16,18 +19,37 @@ class SensorManager(models.Manager['Sensor']):
 
     def find_many_by_columns(
         self,
+        interval_options: IntervalOptions = IntervalOptions.ALL_TIME,
     ) -> tuple[list[datetime], list[float], list[float], list[float]]:
-        queryset = (
-            self.all()
-            .order_by('timestamp')
-            .values_list(
-                'timestamp',
-                'temperature',
-                'humidity',
-                'air_quality',
+        queryset = self.all()
+
+        now = timezone.now()
+        if interval_options == IntervalOptions.LAST_1_MINUTE:
+            queryset = queryset.filter(
+                timestamp__gte=now - timedelta(minutes=1)
             )
+        elif interval_options == IntervalOptions.LAST_5_MINUTES:
+            queryset = queryset.filter(
+                timestamp__gte=now - timedelta(minutes=5)
+            )
+        elif interval_options == IntervalOptions.LAST_10_MINUTES:
+            queryset = queryset.filter(
+                timestamp__gte=now - timedelta(minutes=10)
+            )
+        elif interval_options == IntervalOptions.LAST_1_HOUR:
+            queryset = queryset.filter(timestamp__gte=now - timedelta(hours=1))
+        elif interval_options == IntervalOptions.LAST_24_HOURS:
+            queryset = queryset.filter(timestamp__gte=now - timedelta(hours=24))
+
+        queryset = queryset.order_by('timestamp').values_list(
+            'timestamp',
+            'temperature',
+            'humidity',
+            'air_quality',
         )
-        timestamp, temperature, humidity, air_quality = zip(*queryset)
+        timestamp, temperature, humidity, air_quality = (
+            zip(*queryset) if queryset else ([], [], [], [])
+        )
         return (
             list(timestamp),
             list(map(float, temperature)),

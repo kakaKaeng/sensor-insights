@@ -1,7 +1,12 @@
-import numpy
+import statistics
 
 from apps.sensors.models import SensorManager
-from apps.sensors.schemas import SensorProcessData, ProcessData, IQR
+from apps.sensors.schemas import (
+    SensorProcessData,
+    ProcessData,
+    IQR,
+    IntervalOptions,
+)
 
 
 class SensorProcessService:
@@ -10,16 +15,35 @@ class SensorProcessService:
 
     @staticmethod
     def _get_iqr(values: list[float]) -> IQR:
-        q1 = numpy.percentile(values, 25)
-        q3 = numpy.percentile(values, 75)
-        iqr = q3 - q1
-        lower_bound = q1 - 1.5 * iqr
-        upper_bound = q3 + 1.5 * iqr
-        return IQR(lower=float(lower_bound), upper=float(upper_bound))
+        if len(values) < 4:
+            return IQR.empty()
 
-    def get_process_data(self) -> SensorProcessData:
+        sorted_data = sorted(values)
+        n = len(sorted_data)
+        mid = n // 2
+
+        if n % 2 == 0:
+            lower_half = sorted_data[:mid]
+            upper_half = sorted_data[mid:]
+        else:
+            lower_half = sorted_data[:mid]
+            upper_half = sorted_data[mid + 1 :]
+
+        q1 = statistics.median(lower_half)
+        q3 = statistics.median(upper_half)
+        iqr = q3 - q1
+
+        lower = q1 - 1.5 * iqr
+        upper = q3 + 1.5 * iqr
+        return IQR(lower=float(lower), upper=float(upper))
+
+    def get_process_data(
+        self, interval_options: IntervalOptions = IntervalOptions.ALL_TIME
+    ) -> SensorProcessData:
         _, temperature, humidity, air_quality = (
-            self.sensor_repo.find_many_by_columns()
+            self.sensor_repo.find_many_by_columns(
+                interval_options=interval_options
+            )
         )
 
         temperature_iqr = self._get_iqr(values=temperature)

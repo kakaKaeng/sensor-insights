@@ -5,15 +5,27 @@ from rest_framework import serializers
 from apps.sensors.models import Sensor
 
 
-class SensorSerializer(serializers.ModelSerializer):
+class SensorDataSerializer(serializers.ModelSerializer):
     temperature = serializers.DecimalField(
-        allow_null=True, required=False, max_digits=5, decimal_places=2
+        allow_null=True,
+        required=False,
+        max_digits=5,
+        decimal_places=2,
+        default=None,
     )
     humidity = serializers.DecimalField(
-        allow_null=True, required=False, max_digits=5, decimal_places=2
+        allow_null=True,
+        required=False,
+        max_digits=5,
+        decimal_places=2,
+        default=None,
     )
     air_quality = serializers.DecimalField(
-        allow_null=True, required=False, max_digits=7, decimal_places=2
+        allow_null=True,
+        required=False,
+        max_digits=7,
+        decimal_places=2,
+        default=None,
     )
 
     class Meta:
@@ -26,6 +38,7 @@ class SensorSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs: dict[str, Any]) -> dict[str, Any]:
+        print('--------->')
         if Sensor.objects.is_exists(timestamp=attrs['timestamp']):
             raise serializers.ValidationError('Duplicate sensor data.')
 

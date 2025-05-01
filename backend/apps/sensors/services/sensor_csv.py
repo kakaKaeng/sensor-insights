@@ -7,7 +7,7 @@ from django.db import transaction
 from pydantic import TypeAdapter
 
 from apps.sensors.schemas import SensorCSVData
-from apps.sensors.serializers import SensorDataSerializer
+from apps.sensors.serializers.sensor_data import SensorDataSerializer
 
 
 class SensorCSVService:

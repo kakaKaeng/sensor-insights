@@ -2,7 +2,7 @@ import pytest
 from pydantic import TypeAdapter
 
 from apps.sensors.schemas import SensorCSVData
-from apps.sensors.services import SensorCSVService
+from apps.sensors.services.sensor_csv import SensorCSVService
 
 _MOCK_DATA = [
     {

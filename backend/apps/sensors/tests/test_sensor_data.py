@@ -3,7 +3,7 @@ from typing import Any
 import pytest
 
 from apps.sensors.models import Sensor
-from apps.sensors.serializers import SensorDataSerializer
+from apps.sensors.serializers.sensor_data import SensorDataSerializer
 
 
 _MOCK_CREATE_PAYLOAD = {

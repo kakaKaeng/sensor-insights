@@ -30,3 +30,21 @@ class SensorCSVData(BaseModel):
     @classmethod
     def round_air_quality(cls, v: float | None) -> float | None:
         return round(v, 2) if v else v
+
+
+class IQR(BaseModel):
+    lower: float
+    upper: float
+
+
+class ProcessData(BaseModel):
+    value: list[float]
+    iqr_lower: float
+    iqr_upper: float
+
+
+class SensorProcessData(BaseModel):
+    count: int
+    temperature: ProcessData
+    humidity: ProcessData
+    air_quality: ProcessData

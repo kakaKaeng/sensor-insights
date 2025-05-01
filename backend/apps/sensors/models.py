@@ -11,6 +11,30 @@ class SensorManager(models.Manager['Sensor']):
     def find_one_latest(self) -> Sensor | None:
         return self.order_by('-timestamp').first()
 
+    def find_many(self) -> list[Sensor]:
+        return list(self.all().order_by('timestamp'))
+
+    def find_many_by_columns(
+        self,
+    ) -> tuple[list[datetime], list[float], list[float], list[float]]:
+        queryset = (
+            self.all()
+            .order_by('timestamp')
+            .values_list(
+                'timestamp',
+                'temperature',
+                'humidity',
+                'air_quality',
+            )
+        )
+        timestamp, temperature, humidity, air_quality = zip(*queryset)
+        return (
+            list(timestamp),
+            list(map(float, temperature)),
+            list(map(float, humidity)),
+            list(map(float, air_quality)),
+        )
+
 
 class Sensor(models.Model):
     timestamp = models.DateTimeField(db_index=True, unique=True)

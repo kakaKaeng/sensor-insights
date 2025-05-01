@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 
 from apps.sensors.forms import CSVUploadForm
 from apps.sensors.models import Sensor
-from apps.sensors.services import SensorCSVService
+from apps.sensors.services.sensor_csv import SensorCSVService
 
 
 @admin.register(Sensor)

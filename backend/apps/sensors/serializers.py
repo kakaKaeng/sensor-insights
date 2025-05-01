@@ -38,7 +38,6 @@ class SensorDataSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs: dict[str, Any]) -> dict[str, Any]:
-        print('--------->')
         if Sensor.objects.is_exists(timestamp=attrs['timestamp']):
             raise serializers.ValidationError('Duplicate sensor data.')
 

@@ -1,0 +1,19 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n admin_urls %}
+
+{% block content %}
+    <h1>Upload CSV File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <thead>
+            <tr><td colspan="2"><h1>Duet Stats Request Form</h1></td></tr>
+            </thead>
+            <tbody>
+            {{ form.as_table }}
+            </tbody>
+        </table>
+
+        <input type="submit" value="Upload">
+    </form>
+{% endblock %}

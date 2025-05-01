@@ -1,8 +1,8 @@
 import pytest
 from pydantic import TypeAdapter
 
-from apps.sensors.schemas import SensorData
-from apps.sensors.services import SensorCSVService
+from apps.sensors.schemas import SensorCSVData
+from apps.sensors.services.sensor_csv import SensorCSVService
 
 _MOCK_DATA = [
     {
@@ -33,20 +33,20 @@ _MOCK_DATA = [
 
 
 @pytest.fixture
-def mock_sensors() -> list[SensorData]:
-    return TypeAdapter(list[SensorData]).validate_python(_MOCK_DATA)
+def mock_sensors() -> list[SensorCSVData]:
+    return TypeAdapter(list[SensorCSVData]).validate_python(_MOCK_DATA)
 
 
 class TestCsvImport:
     def setup_method(self) -> None:
         self.sensor_csv_service = SensorCSVService()
 
-    def test_duplicates(self, mock_sensors: list[SensorData]) -> None:
+    def test_duplicates(self, mock_sensors: list[SensorCSVData]) -> None:
         new_sensors = self.sensor_csv_service._remove_duplicates(mock_sensors)
         assert len(mock_sensors) == 4
         assert len(new_sensors) == 3
 
-    def test_missing_data(self, mock_sensors: list[SensorData]) -> None:
+    def test_missing_data(self, mock_sensors: list[SensorCSVData]) -> None:
         new_sensors = self.sensor_csv_service._remove_duplicates(mock_sensors)
         assert new_sensors[0].temperature == 10
 

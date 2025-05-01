@@ -6,8 +6,8 @@ from typing import Any
 from django.db import transaction
 from pydantic import TypeAdapter
 
-from apps.sensors.schemas import SensorData
-from apps.sensors.serializers import SensorDataSerializer
+from apps.sensors.schemas import SensorCSVData
+from apps.sensors.serializers.sensor_data import SensorDataSerializer
 
 
 class SensorCSVService:
@@ -15,13 +15,15 @@ class SensorCSVService:
         self.logger = logging.getLogger(__name__)
 
     @staticmethod
-    def _read_csv(csv_file: Any) -> list[SensorData]:
+    def _read_csv(csv_file: Any) -> list[SensorCSVData]:
         decoded_file = csv_file.read().decode('utf-8')
         io_string = io.StringIO(decoded_file)
         reader = csv.DictReader(io_string)
-        return TypeAdapter(list[SensorData]).validate_python(reader)
+        return TypeAdapter(list[SensorCSVData]).validate_python(reader)
 
-    def _remove_duplicates(self, sensors: list[SensorData]) -> list[SensorData]:
+    def _remove_duplicates(
+        self, sensors: list[SensorCSVData]
+    ) -> list[SensorCSVData]:
         _temp_sensors = {}
         for sensor in sensors:
             if sensor.timestamp in _temp_sensors:
@@ -35,7 +37,7 @@ class SensorCSVService:
         return new_sensors
 
     @staticmethod
-    def _patch_missing_data(sensors: list[SensorData]) -> None:
+    def _patch_missing_data(sensors: list[SensorCSVData]) -> None:
         # use data before to fill forward.
         for i, sensor in enumerate(sensors):
             if sensor.temperature is None:
@@ -52,7 +54,7 @@ class SensorCSVService:
         sensors_cleaned = self._remove_duplicates(sensors=sensors)
         self._patch_missing_data(sensors=sensors_cleaned)
 
-        data = TypeAdapter(list[SensorData]).dump_python(
+        data = TypeAdapter(list[SensorCSVData]).dump_python(
             sensors_cleaned, mode='json'
         )
 

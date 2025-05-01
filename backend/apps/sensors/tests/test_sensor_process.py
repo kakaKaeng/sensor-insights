@@ -1,14 +1,15 @@
 from datetime import datetime
 from unittest.mock import MagicMock
 
+from apps.sensors.schemas import SensorColumn
 from apps.sensors.services.sensor_process import SensorProcessService
 
 
 class TestSensorProcess:
     def setup_method(self) -> None:
         mock_repo = MagicMock()
-        mock_repo.find_many_by_columns.return_value = (
-            [
+        mock_repo.find_many_by_columns.return_value = SensorColumn(
+            timestamp=[
                 datetime(2025, 1, 1, 12, 0, 0),
                 datetime(2025, 1, 1, 12, 1, 0),
                 datetime(2025, 1, 1, 12, 2, 0),
@@ -16,9 +17,9 @@ class TestSensorProcess:
                 datetime(2025, 1, 1, 12, 4, 0),
                 datetime(2025, 1, 1, 12, 5, 0),
             ],
-            [40, 50, 60, 70, 80, 90],  # temperature
-            [42, 58, 63, 77, 85, 240],  # humidity
-            [40, 50, 60, 70, 80, 90],  # air_quality
+            temperature=[40, 50, 60, 70, 80, 90],  # temperature
+            humidity=[42, 58, 63, 77, 85, 240],  # humidity
+            air_quality=[40, 50, 60, 70, 80, 90],  # air_quality
         )
 
         self.sensor_process_service = SensorProcessService(

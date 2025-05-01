@@ -8,3 +8,6 @@ test:
 format:
 	@uv run ruff check --fix
 	@uv run ruff format
+
+run-local:
+	@uv run manage.py runserver 0.0.0.0:8000

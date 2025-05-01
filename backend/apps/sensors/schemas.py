@@ -34,6 +34,13 @@ class SensorCSVData(BaseModel):
         return round(v, 2) if v else v
 
 
+class SensorColumn(BaseModel):
+    timestamp: list[datetime]
+    temperature: list[float]
+    humidity: list[float]
+    air_quality: list[float]
+
+
 class IQR(BaseModel):
     lower: float | None
     upper: float | None
@@ -61,5 +68,5 @@ class IntervalOptions(StrEnum):
     LAST_5_MINUTES = 'last_5_minutes'
     LAST_10_MINUTES = 'last_10_minutes'
     LAST_1_HOUR = 'last_1_hour'
-    LAST_24_HOURS = 'last_34_hours'
+    LAST_24_HOURS = 'last_24_hours'
     ALL_TIME = 'all_time'

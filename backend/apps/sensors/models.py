@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.utils import timezone
 
-from apps.sensors.schemas import IntervalOptions
+from apps.sensors.schemas import IntervalOptions, SensorColumn
 
 
 class SensorManager(models.Manager['Sensor']):
@@ -20,7 +20,7 @@ class SensorManager(models.Manager['Sensor']):
     def find_many_by_columns(
         self,
         interval_options: IntervalOptions = IntervalOptions.ALL_TIME,
-    ) -> tuple[list[datetime], list[float], list[float], list[float]]:
+    ) -> SensorColumn:
         queryset = self.all()
 
         now = timezone.now()
@@ -50,11 +50,11 @@ class SensorManager(models.Manager['Sensor']):
         timestamp, temperature, humidity, air_quality = (
             zip(*queryset) if queryset else ([], [], [], [])
         )
-        return (
-            list(timestamp),
-            list(map(float, temperature)),
-            list(map(float, humidity)),
-            list(map(float, air_quality)),
+        return SensorColumn(
+            timestamp=list(timestamp),
+            temperature=list(map(float, temperature)),
+            humidity=list(map(float, humidity)),
+            air_quality=list(map(float, air_quality)),
         )
 
 

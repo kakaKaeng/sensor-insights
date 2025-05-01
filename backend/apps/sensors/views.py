@@ -6,6 +6,9 @@ from rest_framework.views import APIView
 from apps.commons.permissions import ApiKeyPermission
 from apps.sensors.models import Sensor
 from apps.sensors.schemas import IntervalOptions
+from apps.sensors.serializers.sensor_aggregated import (
+    SensorAggregatedSerializer,
+)
 from apps.sensors.serializers.sensor_data import SensorDataSerializer
 from apps.sensors.services.sensor_process import SensorProcessService
 
@@ -25,7 +28,7 @@ class SensorDataApiView(APIView):
         )
 
 
-class SensorProcessApiView(APIView):
+class SensorProcessedApiView(APIView):
     permission_classes = (ApiKeyPermission,)
 
     def get(self, request: Request) -> Response:
@@ -41,5 +44,24 @@ class SensorProcessApiView(APIView):
 
         return Response(
             process_data.model_dump(mode='json'),
+            status=status.HTTP_200_OK,
+        )
+
+
+class SensorAggregatedApiView(APIView):
+    permission_classes = (ApiKeyPermission,)
+
+    def get(self, request: Request) -> Response:
+        interval_options = request.query_params.get(
+            'interval_options', IntervalOptions.ALL_TIME
+        )
+
+        sensor_column = Sensor.objects.find_many_by_columns(
+            interval_options=interval_options
+        )
+
+        serializer = SensorAggregatedSerializer(instance=sensor_column)
+        return Response(
+            serializer.data,
             status=status.HTTP_200_OK,
         )

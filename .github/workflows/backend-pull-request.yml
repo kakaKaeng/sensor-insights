@@ -1,0 +1,50 @@
+name: Backend Pull Request CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - backend/**
+
+jobs:
+  check:
+    name: Format & Lint Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        working-directory: backend
+        run: uv python install
+
+      - name: Check linters
+        working-directory: backend
+        run: |
+          make check
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        working-directory: backend
+        run: uv python install
+
+      - name: Run Test
+        working-directory: backend
+        run: |
+          make test

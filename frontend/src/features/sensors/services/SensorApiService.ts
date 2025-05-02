@@ -13,18 +13,20 @@ export enum IntervalOptions {
 
 export class SensorApiService extends BaseApiService {
   getSensorProcessed(intervalOption: IntervalOptions) {
-    return this.get<SensorProcessed>('sensors/processed', {
+    return this.get<SensorProcessed>('api/sensors/processed', {
       params: {
-        interval_options: intervalOption
-      }
+        interval_options: intervalOption,
+      },
     });
   }
 
   getSensorAggregated(intervalOption: IntervalOptions) {
-    return this.get<SensorAggregated>('sensors/aggregated', {
+    return this.get<SensorAggregated>('api/sensors/aggregated', {
       params: {
-        interval_options: intervalOption
-      }
+        interval_options: intervalOption,
+      },
     });
   }
 }
+
+export const sensorApiService = new SensorApiService();

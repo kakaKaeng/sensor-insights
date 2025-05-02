@@ -3,7 +3,8 @@ import type { SensorAggregateColumn } from '@/features/sensors/interfaces/Sensor
 import AggregateData from '@/features/sensors/components/AggregateData.vue';
 
 defineProps<{
-  sensorAggregateColumn: SensorAggregateColumn;
+  sensorAggregateColumn?: SensorAggregateColumn;
+  loading: boolean;
 }>();
 </script>
 
@@ -12,17 +13,18 @@ defineProps<{
     <h1 class="underline text-base">
       <slot name="title"></slot>
     </h1>
+
     <div class="mt-4 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-y-4">
-      <AggregateData :value="sensorAggregateColumn.mean">
+      <AggregateData :value="sensorAggregateColumn?.mean" :loading="loading">
         <template #title>{{ $t('sensors.mean') }}</template>
       </AggregateData>
-      <AggregateData :value="sensorAggregateColumn.median">
+      <AggregateData :value="sensorAggregateColumn?.median" :loading="loading">
         <template #title>{{ $t('sensors.median') }}</template>
       </AggregateData>
-      <AggregateData :value="sensorAggregateColumn.min">
+      <AggregateData :value="sensorAggregateColumn?.min" :loading="loading">
         <template #title>{{ $t('sensors.min') }}</template>
       </AggregateData>
-      <AggregateData :value="sensorAggregateColumn.max">
+      <AggregateData :value="sensorAggregateColumn?.max" :loading="loading">
         <template #title>{{ $t('sensors.max') }}</template>
       </AggregateData>
     </div>

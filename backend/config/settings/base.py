@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+from corsheaders.defaults import default_headers
 from environs import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,13 +47,14 @@ CORE_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = ['rest_framework']
+THIRD_PARTY_APPS = ['rest_framework', 'corsheaders']
 
 LOCAL_APPS = ['apps.sensors']
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -169,3 +171,8 @@ LOGGING = {
         },
     },
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'X-Api-Key',
+]

@@ -1,1 +1,1 @@
-export * from './services/BaseApi'
+export * from './services/BaseApiService.ts';

@@ -21,19 +21,19 @@ class SensorAggregatedColumnSerializer(serializers.Serializer):
 
     @staticmethod
     def get_mean(data: list[float]) -> float:
-        return statistics.mean(data)
+        return statistics.mean(data) if data else 0
 
     @staticmethod
     def get_median(data: list[float]) -> float:
-        return statistics.median(data)
+        return statistics.median(data) if data else 0
 
     @staticmethod
     def get_min(data: list[float]) -> float:
-        return min(data)
+        return min(data) if data else 0
 
     @staticmethod
     def get_max(data: list[float]) -> float:
-        return max(data)
+        return max(data) if data else 0
 
 
 class SensorAggregatedSerializer(serializers.Serializer):

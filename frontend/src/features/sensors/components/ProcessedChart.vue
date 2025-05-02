@@ -16,10 +16,11 @@ const getVisualMap = () => {
     type: 'piecewise',
     seriesIndex: 0,
     pieces: [
-      { max: lowerBound.value, color: 'red' },
+      { max: lowerBound.value, color: 'red'},
       { min: lowerBound.value, max: upperBound.value },
       { min: upperBound.value, color: 'red' },
     ],
+    textStyle: { color: ['red', 'blue', 'red']},
     top: 'center',
     right: 10,
   };
@@ -78,7 +79,7 @@ const lineChartOptions = ref({
     markLine: {
       silent: true,
       lineStyle: {
-        color: 'black',
+        color: '#5470c6',
         type: 'solid',
       },
       data: getMarkLine(),

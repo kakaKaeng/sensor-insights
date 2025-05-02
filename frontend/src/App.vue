@@ -4,8 +4,10 @@ import CoreNavbar from '@/shared/components/CoreNavbar.vue';
 </script>
 
 <template>
-  <CoreNavbar />
-  <RouterView />
+  <div class="bg-gray-100 dark:bg-gray-600 transition duration-300">
+    <CoreNavbar />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped></style>

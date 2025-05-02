@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="p-6 bg-white rounded-lg shadow-md lg:w-full sm:w-2xl w-100">
+  <div class="p-6 bg-white dark:bg-gray-700 dark:text-white rounded-lg shadow-md lg:w-full sm:w-2xl w-100 transition duration-300">
     <h1 class="text-xl">
       <slot name="title"></slot>
     </h1>

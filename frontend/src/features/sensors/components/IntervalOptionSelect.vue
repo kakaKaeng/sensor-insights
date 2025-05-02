@@ -21,7 +21,7 @@ watch(selected, (val) => {
   <form class="max-w-sm mx-auto">
     <select
       id="langs"
-      class="bg-gray-10 border border-gray-200 text-gray-900 text-sm rounded-md"
+      class="bg-gray-10 dark:bg-gray-700 dark:text-white border border-gray-200 dark:border-gray-500 text-gray-900 text-sm rounded-md"
       v-model="selected"
     >
       <option v-for="option in IntervalOptions" :key="`locale-${option}`" :value="option">

@@ -7,5 +7,7 @@
 
 body {
   font-family: monospace;
-  background-color: #ddf4dfff;
+
 }
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

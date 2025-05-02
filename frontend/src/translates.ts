@@ -24,6 +24,8 @@ export const i18n = createI18n({
       },
       commons: {
         data_not_found: 'Data not found',
+        en: 'English',
+        th: 'Thai'
       },
     },
     th: {
@@ -46,6 +48,8 @@ export const i18n = createI18n({
       },
       commons: {
         data_not_found: 'ไม่พบข้อมูล',
+        en: 'อังกฤษ',
+        th: 'ไทย'
       },
     },
   },

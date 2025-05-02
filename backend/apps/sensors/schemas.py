@@ -61,6 +61,7 @@ class SensorProcessData(BaseModel):
     temperature: ProcessData
     humidity: ProcessData
     air_quality: ProcessData
+    timestamp: list[datetime]
 
 
 class IntervalOptions(StrEnum):

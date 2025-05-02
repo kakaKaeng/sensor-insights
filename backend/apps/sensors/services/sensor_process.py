@@ -65,4 +65,5 @@ class SensorProcessService:
                 iqr_lower=air_quality_iqr.lower,
                 iqr_upper=air_quality_iqr.upper,
             ),
+            timestamp=sensor_column.timestamp,
         )

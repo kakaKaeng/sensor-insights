@@ -16,11 +16,34 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
 from apps.sensors.routers import urlpatterns as sensors_router
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Snippets API',
+        default_version='v1',
+    ),
+    public=True,
+    permission_classes=[
+        permissions.IsAdminUser,
+    ],
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(sensors_router)),
+    path(
+        'api/swagger/',
+        login_required(
+            schema_view.with_ui('swagger', cache_timeout=0),
+            login_url='admin:login',
+        ),
+        name='schema-swagger-ui',
+    ),
 ]

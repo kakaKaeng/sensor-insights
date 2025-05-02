@@ -19,7 +19,7 @@ export const i18n = createI18n({
         last_10_minutes: 'Last 10 minutes',
         last_1_hour: 'Last 1 hour',
         last_24_hours: 'Last 24 hours',
-        all_time: 'All time',
+        all_time: 'All',
         anomaly: 'Anomaly',
       },
       commons: {
@@ -43,7 +43,7 @@ export const i18n = createI18n({
         last_10_minutes: '10 นาทีสุดท้าย',
         last_1_hour: '1 ชั่วโมงสุดท้าย',
         last_24_hours: '24 ชั่วโมงล่าสุด',
-        all_time: 'ตลอดเวลา',
+        all_time: 'ทั้งหมด',
         anomaly: 'ความผิดปกติ',
       },
       commons: {

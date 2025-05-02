@@ -47,7 +47,7 @@ CORE_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = ['rest_framework', 'corsheaders']
+THIRD_PARTY_APPS = ['rest_framework', 'corsheaders', 'drf_yasg']
 
 LOCAL_APPS = ['apps.sensors']
 

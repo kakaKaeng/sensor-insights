@@ -5,34 +5,40 @@ import { IntervalOptions, sensorApiService } from '@/features/sensors/services/S
 import { onMounted, ref, watch } from 'vue';
 import IntervalOptionSelect from '@/features/sensors/components/IntervalOptionSelect.vue';
 import { useDebounceFn } from '@vueuse/core';
+import type { SensorProcessed } from '@/features/sensors/interfaces/SensorProcessed.ts';
 
 const aggregatedData = ref<SensorAggregated | null>(null);
+const processedData = ref<SensorProcessed | null>(null);
 const loading = ref(true);
 
 const selectedInterval = ref<IntervalOptions>(IntervalOptions.ALL_TIME);
 
 onMounted(async () => {
-  await loadSensorAggregated();
+  await loadSensorData();
 });
 
 watch(
   selectedInterval,
   useDebounceFn(() => {
-    loadSensorAggregated();
+    loadSensorData();
   }, 300),
 );
 
-const loadSensorAggregated = async () => {
+const loadSensorData = async () => {
   try {
-    loading.value = true;
-    const response = await sensorApiService.getSensorAggregated(selectedInterval.value);
-    aggregatedData.value = response.data;
+    loading.value = true
+    const [processed, aggregated] = await Promise.all([
+      sensorApiService.getSensorProcessed(selectedInterval.value),
+      sensorApiService.getSensorAggregated(selectedInterval.value),
+    ])
+    processedData.value = processed.data
+    aggregatedData.value = aggregated.data
   } catch (err) {
-    console.error('Failed to load sensor data', err);
+    console.error('API call failed', err)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 </script>
 
 <template>
@@ -43,6 +49,7 @@ const loadSensorAggregated = async () => {
 
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.temperature"
+      :sensor-processed-column="processedData?.temperature"
       :loading="loading"
       class="my-5"
     >
@@ -50,6 +57,7 @@ const loadSensorAggregated = async () => {
     </AggregateGroup>
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.humidity"
+      :sensor-processed-column="processedData?.humidity"
       :loading="loading"
       class="my-5"
     >
@@ -57,6 +65,7 @@ const loadSensorAggregated = async () => {
     </AggregateGroup>
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.air_quality"
+      :sensor-processed-column="processedData?.air_quality"
       :loading="loading"
       class="my-5"
     >

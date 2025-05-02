@@ -21,6 +21,9 @@ export const i18n = createI18n({
         last_24_hours: 'Last 24 hours',
         all_time: 'All time',
       },
+      commons: {
+        data_not_found: 'Data not found'
+      }
     },
     th: {
       sensors: {
@@ -39,6 +42,9 @@ export const i18n = createI18n({
         last_24_hours: '24 ชั่วโมงล่าสุด',
         all_time: 'ตลอดเวลา',
       },
+      commons: {
+        data_not_found: 'ไม่พบข้อมูล'
+      }
     },
   },
 });

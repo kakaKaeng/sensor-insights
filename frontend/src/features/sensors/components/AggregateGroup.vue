@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import type { SensorAggregateColumn } from '@/features/sensors/interfaces/SensorAggregated.ts';
+import type { SensorAggregatedColumn } from '@/features/sensors/interfaces/SensorAggregated.ts';
 import AggregateData from '@/features/sensors/components/AggregateData.vue';
+import ProcessedChart from '@/features/sensors/components/ProcessedChart.vue';
+import type { SensorProcessedColumn } from '@/features/sensors/interfaces/SensorProcessed.ts';
 
 defineProps<{
-  sensorAggregateColumn?: SensorAggregateColumn;
+  sensorAggregateColumn?: SensorAggregatedColumn;
+  sensorProcessedColumn?: SensorProcessedColumn;
   loading: boolean;
 }>();
 </script>
 
 <template>
   <div class="p-6 bg-white rounded-lg shadow-md lg:w-full sm:w-2xl w-100">
-    <h1 class="underline text-base">
+    <h1 class="underline text-xl">
       <slot name="title"></slot>
     </h1>
 
-    <div class="mt-4 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-y-4">
+    <ProcessedChart :sensor-processed-column="sensorProcessedColumn" :loading="loading"/>
+
+    <div class="mt-4 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-y-4 pb-2">
       <AggregateData :value="sensorAggregateColumn?.mean" :loading="loading">
         <template #title>{{ $t('sensors.mean') }}</template>
       </AggregateData>

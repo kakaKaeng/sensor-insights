@@ -1,4 +1,4 @@
-export interface SensorAggregateColumn {
+export interface SensorAggregatedColumn {
   mean: number;
   median: number;
   min: number;
@@ -7,7 +7,7 @@ export interface SensorAggregateColumn {
 
 export interface SensorAggregated {
   count: number;
-  temperature: SensorAggregateColumn;
-  humidity: SensorAggregateColumn;
-  air_quality: SensorAggregateColumn;
+  temperature: SensorAggregatedColumn;
+  humidity: SensorAggregatedColumn;
+  air_quality: SensorAggregatedColumn;
 }

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import CoreNavbar from '@/shared/components/CoreNavbar.vue';
 </script>
 
 <template>
-  <header>
-    <h1>Header</h1>
-  </header>
-
+  <CoreNavbar />
   <RouterView />
 </template>
 

@@ -50,6 +50,7 @@ const loadSensorData = async () => {
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.temperature"
       :sensor-processed-column="processedData?.temperature"
+      :timestamp="processedData?.timestamp"
       :loading="loading"
       class="my-5"
     >
@@ -58,6 +59,7 @@ const loadSensorData = async () => {
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.humidity"
       :sensor-processed-column="processedData?.humidity"
+      :timestamp="processedData?.timestamp"
       :loading="loading"
       class="my-5"
     >
@@ -66,6 +68,7 @@ const loadSensorData = async () => {
     <AggregateGroup
       :sensor-aggregate-column="aggregatedData?.air_quality"
       :sensor-processed-column="processedData?.air_quality"
+      :timestamp="processedData?.timestamp"
       :loading="loading"
       class="my-5"
     >

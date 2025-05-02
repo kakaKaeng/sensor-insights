@@ -5,19 +5,27 @@ export const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     en: {
-      sensor: {
+      sensors: {
         sensor: 'Sensor',
-      },
-      message: {
-        hello: 'hello world',
+        temperature: 'Temperature',
+        humidity: 'Humidity',
+        air_quality: 'Air Quality',
+        mean: 'Mean',
+        median: 'Median',
+        min: 'Min',
+        max: 'Max',
       },
     },
     th: {
-      sensor: {
+      sensors: {
         sensor: 'Sensor',
-      },
-      message: {
-        hello: 'สวัสดี',
+        temperature: 'อุณหภูมิ',
+        humidity: 'ความชื้น',
+        air_quality: 'คุณภาพอากาศ',
+        mean: 'ค่าเฉลี่ย',
+        median: 'ค่ามัธยฐาน',
+        min: 'ค่าต่ำสุด',
+        max: 'ค่าสูงสุด',
       },
     },
   },

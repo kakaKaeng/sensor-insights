@@ -26,19 +26,19 @@ watch(
 
 const loadSensorData = async () => {
   try {
-    loading.value = true
+    loading.value = true;
     const [processed, aggregated] = await Promise.all([
       sensorApiService.getSensorProcessed(selectedInterval.value),
       sensorApiService.getSensorAggregated(selectedInterval.value),
-    ])
-    processedData.value = processed.data
-    aggregatedData.value = aggregated.data
+    ]);
+    processedData.value = processed.data;
+    aggregatedData.value = aggregated.data;
   } catch (err) {
-    console.error('API call failed', err)
+    console.error('API call failed', err);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>

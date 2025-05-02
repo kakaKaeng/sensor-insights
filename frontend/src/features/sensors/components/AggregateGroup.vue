@@ -13,13 +13,13 @@ defineProps<{
 
 <template>
   <div class="p-6 bg-white rounded-lg shadow-md lg:w-full sm:w-2xl w-100">
-    <h1 class="underline text-xl">
+    <h1 class="text-xl">
       <slot name="title"></slot>
     </h1>
 
-    <ProcessedChart :sensor-processed-column="sensorProcessedColumn" :loading="loading"/>
+    <ProcessedChart :sensor-processed-column="sensorProcessedColumn" :loading="loading" />
 
-    <div class="mt-4 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-y-4 pb-2">
+    <div class="mt-6 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-y-4 pb-2">
       <AggregateData :value="sensorAggregateColumn?.mean" :loading="loading">
         <template #title>{{ $t('sensors.mean') }}</template>
       </AggregateData>

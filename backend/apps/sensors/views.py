@@ -63,7 +63,7 @@ class SensorProcessedApiView(APIView):
     )
     def get(self, request: Request) -> Response:
         interval_options = request.query_params.get(
-            'interval_options', IntervalOptions.ALL_TIME
+            'interval_options', IntervalOptions.LAST_5_MINUTES
         )
         sensor_process_service = SensorProcessService(
             sensor_repo=Sensor.objects,
@@ -93,7 +93,7 @@ class SensorAggregatedApiView(APIView):
     )
     def get(self, request: Request) -> Response:
         interval_options = request.query_params.get(
-            'interval_options', IntervalOptions.ALL_TIME
+            'interval_options', IntervalOptions.LAST_5_MINUTES
         )
 
         sensor_column = Sensor.objects.find_many_by_columns(

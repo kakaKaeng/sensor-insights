@@ -2,7 +2,7 @@
 import AggregateGroup from '@/features/sensors/components/AggregateGroup.vue';
 import type { SensorAggregated } from '@/features/sensors/interfaces/SensorAggregated.ts';
 import { IntervalOptions, sensorApiService } from '@/features/sensors/services/SensorApiService.ts';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import IntervalOptionSelect from '@/features/sensors/components/IntervalOptionSelect.vue';
 import { useDebounceFn } from '@vueuse/core';
 import type { SensorProcessed } from '@/features/sensors/interfaces/SensorProcessed.ts';
@@ -11,22 +11,31 @@ const aggregatedData = ref<SensorAggregated | null>(null);
 const processedData = ref<SensorProcessed | null>(null);
 const loading = ref(true);
 
-const selectedInterval = ref<IntervalOptions>(IntervalOptions.ALL_TIME);
+const selectedInterval = ref<IntervalOptions>(IntervalOptions.LAST_5_MINUTES);
+let intervalId: number;
 
 onMounted(async () => {
-  await loadSensorData();
+  await loadSensorData(true).then(() => {
+    intervalId = setInterval(loadSensorData, 5000);
+  });
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId);
 });
 
 watch(
   selectedInterval,
   useDebounceFn(() => {
-    loadSensorData();
+    loadSensorData(true);
   }, 300),
 );
 
-const loadSensorData = async () => {
+const loadSensorData = async (setLoading: boolean = false) => {
   try {
-    loading.value = true;
+    if (setLoading) {
+      loading.value = true;
+    }
     const [processed, aggregated] = await Promise.all([
       sensorApiService.getSensorProcessed(selectedInterval.value),
       sensorApiService.getSensorAggregated(selectedInterval.value),

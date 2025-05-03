@@ -38,7 +38,7 @@ class SensorProcessService:
         return IQR(lower=float(lower), upper=float(upper))
 
     def get_process_data(
-        self, interval_options: IntervalOptions = IntervalOptions.ALL_TIME
+        self, interval_options: IntervalOptions = IntervalOptions.LAST_5_MINUTES
     ) -> SensorProcessData:
         sensor_column = self.sensor_repo.find_many_by_columns(
             interval_options=interval_options

@@ -19,7 +19,7 @@ class SensorManager(models.Manager['Sensor']):
 
     def find_many_by_columns(
         self,
-        interval_options: IntervalOptions = IntervalOptions.ALL_TIME,
+        interval_options: IntervalOptions = IntervalOptions.LAST_5_MINUTES,
     ) -> SensorColumn:
         queryset = self.all()
 

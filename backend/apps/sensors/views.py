@@ -1,3 +1,5 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -10,12 +12,30 @@ from apps.sensors.serializers.sensor_aggregated import (
     SensorAggregatedSerializer,
 )
 from apps.sensors.serializers.sensor_data import SensorDataSerializer
+from apps.sensors.serializers.sensor_processed import (
+    ResponseSensorProcessedSerializer,
+)
 from apps.sensors.services.sensor_process import SensorProcessService
+
+
+api_key_header = openapi.Parameter(
+    name='X-Api-Key',
+    in_=openapi.IN_HEADER,
+    description='Api key in format: X-Api-Key <api-key>',
+    type=openapi.TYPE_STRING,
+    required=True,
+)
 
 
 class SensorDataApiView(APIView):
     permission_classes = (ApiKeyPermission,)
 
+    @swagger_auto_schema(
+        request_body=SensorDataSerializer,
+        responses={201: 'Success'},
+        tags=['sensors'],
+        manual_parameters=[api_key_header],
+    )
     def post(self, request: Request) -> Response:
         serializer = SensorDataSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -31,9 +51,19 @@ class SensorDataApiView(APIView):
 class SensorProcessedApiView(APIView):
     permission_classes = (ApiKeyPermission,)
 
+    @swagger_auto_schema(
+        responses={
+            200: openapi.Response(
+                description='Success response',
+                schema=ResponseSensorProcessedSerializer(),
+            )
+        },
+        tags=['sensors'],
+        manual_parameters=[api_key_header],
+    )
     def get(self, request: Request) -> Response:
         interval_options = request.query_params.get(
-            'interval_options', IntervalOptions.ALL_TIME
+            'interval_options', IntervalOptions.LAST_5_MINUTES
         )
         sensor_process_service = SensorProcessService(
             sensor_repo=Sensor.objects,
@@ -51,9 +81,19 @@ class SensorProcessedApiView(APIView):
 class SensorAggregatedApiView(APIView):
     permission_classes = (ApiKeyPermission,)
 
+    @swagger_auto_schema(
+        responses={
+            200: openapi.Response(
+                description='Success response',
+                schema=SensorAggregatedSerializer(),
+            )
+        },
+        tags=['sensors'],
+        manual_parameters=[api_key_header],
+    )
     def get(self, request: Request) -> Response:
         interval_options = request.query_params.get(
-            'interval_options', IntervalOptions.ALL_TIME
+            'interval_options', IntervalOptions.LAST_5_MINUTES
         )
 
         sensor_column = Sensor.objects.find_many_by_columns(

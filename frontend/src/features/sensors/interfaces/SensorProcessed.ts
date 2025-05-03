@@ -9,4 +9,5 @@ export interface SensorProcessed {
   temperature: SensorProcessedColumn;
   humidity: SensorProcessedColumn;
   air_quality: SensorProcessedColumn;
+  timestamp: string[];
 }

@@ -1,4 +1,3 @@
-from django.conf import settings
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
@@ -25,7 +24,6 @@ api_key_header = openapi.Parameter(
     description='Api key in format: X-Api-Key <api-key>',
     type=openapi.TYPE_STRING,
     required=True,
-    default=settings.X_API_KEY,
 )
 
 

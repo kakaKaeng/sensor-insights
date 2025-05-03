@@ -9,6 +9,8 @@
 .DS_Store
 .idea
 
+backend/staticfiles/
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

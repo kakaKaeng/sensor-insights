@@ -1,5 +1,6 @@
 import sys
 import random
+from zoneinfo import ZoneInfo
 
 import requests
 import time
@@ -27,7 +28,7 @@ def get_payload():
         is_anomaly = False
 
     return is_anomaly, {
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now(ZoneInfo("Asia/Bangkok")).isoformat(),
         "temperature": temperature,
         "humidity": humidity,
         "air_quality": air_quality,

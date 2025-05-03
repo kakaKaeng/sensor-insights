@@ -9,8 +9,8 @@ API_URL = 'http://127.0.0.1:8000/api/sensors/data'
 
 
 def get_payload():
-    # 30% anomaly
-    if random.random() < 0.3:
+    # 20% anomaly
+    if random.random() < 0.2:
         temperature = round(random.uniform(40, 100), 2)
         humidity = round(random.uniform(40, 100), 2)
         air_quality = round(random.uniform(40, 100), 2)

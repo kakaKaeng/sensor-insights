@@ -19,3 +19,11 @@ services:
       - "8000:8000"
     env_file:
       - .env
+
+  frontend:
+    build:
+      context: frontend
+    env_file:
+      - .env
+    ports:
+      - "8080:80"

@@ -35,6 +35,7 @@ VITE_API_KEY=Dummy
 docker compose up -d
 
 // first time
+docker compose exec backend sh -c 'uv run manage.py collectstatic --noinput'
 docker compose exec backend sh -c 'uv run manage.py migrate'
 
 // create super user (for import csv in django admin)

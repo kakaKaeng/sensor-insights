@@ -2,6 +2,25 @@
 
 ---
 
+## Cleaning and Anomaly detect
+
+### Cleaning ingest
+
+- check timestamp not duplicate.
+- some data from sensors is missing will use last data to fill forward.
+
+
+### Anomaly Detect
+
+- use IQR method
+  - Calculate Q1 and Q3 then compute IQR number
+  - Determine bounds by
+    - Lower bound = Q1 − 1.5 × IQR 
+    - Upper bound = Q3 + 1.5 × IQR
+  - Any data outside lower bound and upper bound range is anomaly
+
+---
+
 ## Quick Started
 
 ### 1.Setup Env file
@@ -50,3 +69,22 @@ open http://localhost:8080/
 cd tools
 python mock_ingest_data.py Dummy
 ```
+
+### 4.Import Sensor Data CSV (Optional)
+
+require django admin user id
+
+open http://localhost:8000/admin/sensors/sensor/
+
+on top right conor have `IMPORT CSV` button.
+
+upload fild and submit
+
+---
+
+## Api Docs
+
+- http://localhost:8000/api/redoc/
+
+- http://localhost:8000/api/swagger/
+

@@ -1,6 +1,5 @@
 # Sensor Insights
 
----
 
 ## Cleaning and Anomaly detect
 
@@ -19,7 +18,6 @@
     - Upper bound = Q3 + 1.5 × IQR
   - Any data outside lower bound and upper bound range is anomaly
 
----
 
 ## Quick Started
 
@@ -80,7 +78,6 @@ on top right conor have `IMPORT CSV` button.
 
 upload fild and submit
 
----
 
 ## Api Docs
 

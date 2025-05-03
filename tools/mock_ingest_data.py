@@ -11,9 +11,14 @@ API_URL = 'http://127.0.0.1:8000/api/sensors/data'
 def get_payload():
     # 20% anomaly
     if random.random() < 0.2:
-        temperature = round(random.uniform(40, 100), 2)
-        humidity = round(random.uniform(40, 100), 2)
-        air_quality = round(random.uniform(40, 100), 2)
+        if random.random() < 0.5:
+            temperature = round(random.uniform(40, 100), 2)
+            humidity = round(random.uniform(40, 100), 2)
+            air_quality = round(random.uniform(40, 100), 2)
+        else:
+            temperature = round(random.uniform(0, 10), 2)
+            humidity = round(random.uniform(0, 10), 2)
+            air_quality = round(random.uniform(0, 10), 2)
         is_anomaly = True
     else:
         temperature = round(random.uniform(20, 30), 2)

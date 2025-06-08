@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         working-directory: backend
         run: |
+          uv python install
           uv pip install awsebcli
 
       - name: Configure AWS Credentials 2

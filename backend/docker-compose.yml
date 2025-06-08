@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  backend:
+    image: "579672773716.dkr.ecr.ap-southeast-1.amazonaws.com/kakakaeng/do-some-stuff:08062025"
+    volumes:
+      - "./:/app"
+    env_file:
+      - .env
+
+  proxy:
+    image: "nginx:latest"
+    ports:
+      - "80:80"
+    volumes:
+      - "./.deployment/proxy/conf.d:/etc/nginx/conf.d:ro"
+    links:
+      - backend

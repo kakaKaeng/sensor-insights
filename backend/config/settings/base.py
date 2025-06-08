@@ -178,3 +178,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'X-Api-Key',
 ]
+
+# STORAGE
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'kakakaeng.s3'
+AWS_DEFAULT_ACL = 'public-read'

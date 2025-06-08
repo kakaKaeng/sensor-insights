@@ -29,4 +29,5 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []
 
+# TODO change to run on supervisord when have celery service
 CMD ["uv", "run", "gunicorn", "config.wsgi:application", "--workers", "3", "--bind", "0.0.0.0:8000"]

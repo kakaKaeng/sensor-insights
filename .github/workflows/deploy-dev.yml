@@ -21,9 +21,10 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Set up Python
+      - name: Install dependencies
         working-directory: backend
-        run: uv python install
+        run: |
+          uv pip install awsebcli
 
       - name: Configure AWS Credentials 2
         uses: aws-actions/configure-aws-credentials@v4

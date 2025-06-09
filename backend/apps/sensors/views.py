@@ -110,6 +110,6 @@ class SensorAggregatedApiView(APIView):
 class TestApiView(APIView):
     def get(self, request: Request) -> Response:
         return Response(
-            {'message': 'Hello World 3'},
+            {'message': 'Hello World IEIE'},
             status=status.HTTP_200_OK,
         )

@@ -105,3 +105,11 @@ class SensorAggregatedApiView(APIView):
             serializer.data,
             status=status.HTTP_200_OK,
         )
+
+
+class TestApiView(APIView):
+    def get(self, request: Request) -> Response:
+        return Response(
+            {'message': 'Hello'},
+            status=status.HTTP_200_OK,
+        )

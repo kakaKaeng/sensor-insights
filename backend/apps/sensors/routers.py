@@ -4,6 +4,7 @@ from apps.sensors.views import (
     SensorDataApiView,
     SensorProcessedApiView,
     SensorAggregatedApiView,
+    TestApiView,
 )
 
 urlpatterns = [
@@ -18,4 +19,9 @@ urlpatterns = [
         SensorAggregatedApiView.as_view(),
         name='sensors_aggregated',
     ),
+    path(
+        'sensors/test',
+        TestApiView.as_view(),
+        name='sensors_test',
+    )
 ]

@@ -69,6 +69,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "django" },
     { name = "django-cors-headers" },
+    { name = "django-health-check" },
     { name = "django-storages" },
     { name = "djangorestframework" },
     { name = "drf-yasg" },
@@ -94,6 +95,7 @@ dev = [
 requires-dist = [
     { name = "django", specifier = ">=5.2" },
     { name = "django-cors-headers", specifier = ">=4.7.0" },
+    { name = "django-health-check", specifier = ">=3.19.0" },
     { name = "django-storages", specifier = ">=1.14.6" },
     { name = "djangorestframework", specifier = ">=3.16.0" },
     { name = "drf-yasg", specifier = ">=1.21.10" },
@@ -416,6 +418,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/6d/b3/ed0f54ed706ec0b54fd251cc0364a249c6cd6c6ec97f04dc34be5e929eac/django_extensions-4.1.tar.gz", hash = "sha256:7b70a4d28e9b840f44694e3f7feb54f55d495f8b3fa6c5c0e5e12bcb2aa3cdeb", size = 283078, upload-time = "2025-04-11T01:15:39.617Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/64/96/d967ca440d6a8e3861120f51985d8e5aec79b9a8bdda16041206adfe7adc/django_extensions-4.1-py3-none-any.whl", hash = "sha256:0699a7af28f2523bf8db309a80278519362cd4b6e1fd0a8cd4bf063e1e023336", size = 232980, upload-time = "2025-04-11T01:15:37.701Z" },
+]
+
+[[package]]
+name = "django-health-check"
+version = "3.19.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c0/96/60db7257c05418b60ceb9d2c0a568e923394582111e809f1bb3749a7ee60/django_health_check-3.19.0.tar.gz", hash = "sha256:1a995ed4fa08a776beedff65f8f1ec0c22fb6764493f33fb1307fe4c6f23b8c3", size = 20088, upload-time = "2025-06-03T10:57:16.295Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/35/c08be7e0012a7927c5f01185c0df39e0fa249cfc17234cce798c2afaf6bb/django_health_check-3.19.0-py3-none-any.whl", hash = "sha256:30b58d761f40fef47971b8dc145df15bdb71339108034860bbf1d505387aa1ec", size = 31969, upload-time = "2025-06-03T10:57:14.429Z" },
 ]
 
 [[package]]

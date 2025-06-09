@@ -51,6 +51,7 @@ django==5.2
     #   backend
     #   django-cors-headers
     #   django-extensions
+    #   django-health-check
     #   django-storages
     #   django-stubs
     #   django-stubs-ext
@@ -59,6 +60,8 @@ django==5.2
 django-cors-headers==4.7.0
     # via backend
 django-extensions==4.1
+django-health-check==3.19.0
+    # via backend
 django-storages==1.14.6
     # via backend
 django-stubs==5.2.0

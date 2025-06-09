@@ -36,4 +36,4 @@ jobs:
         working-directory: backend
         run: |
           eb status
-          eb deploy --timeout 20
+          eb deploy django-dev --timeout 20

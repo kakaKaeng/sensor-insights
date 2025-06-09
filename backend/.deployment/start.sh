@@ -7,6 +7,7 @@ echo "Container starting up..."
 # Health check - ensure database is reachable
 echo "Checking database connection..."
 python manage.py check --database default
+python manage.py migrate --noinput
 
 # Collect static files (safe to run multiple times)
 echo "Collecting static files..."

@@ -50,6 +50,7 @@ urlpatterns = [
         name='schema-redoc',
     ),
     path(r'', include('health_check.urls')),
+    path(r'hr/', include('health_check.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
